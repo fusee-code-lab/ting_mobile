@@ -12,5 +12,5 @@ class MainBinding implements Bindings {
 
 void main() {
   MainBinding().dependencies();
-  runApp(MainApp());
+  runApp(const MainApp());
 }

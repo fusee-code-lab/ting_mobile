@@ -3,18 +3,22 @@ import 'package:get/get.dart';
 import 'package:ting_mobile/core/page_router.dart';
 
 class MainApp extends StatelessWidget {
+  const MainApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       enableLog: true,
       debugShowCheckedModeBanner: true,
-      home: HomePage(),
+      home: const HomePage(),
       getPages: Get.find<PageRouter<String>>().pages,
     );
   }
 }
 
 class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<PageRouter<String>>(
@@ -22,7 +26,8 @@ class HomePage extends StatelessWidget {
         builder: (controller) {
           return Scaffold(
             appBar: AppBar(
-              title: Text("Ting Mobile", style: TextStyle(color: Colors.black)),
+              title: const Text("Ting Mobile",
+                  style: TextStyle(color: Colors.black)),
               backgroundColor: Colors.white,
             ),
             body: SafeArea(
@@ -37,7 +42,7 @@ class HomePage extends StatelessWidget {
               onTap: controller.setBottomNavigationIdx,
             ),
             floatingActionButton: FloatingActionButton(
-              child: Icon(Icons.plus_one),
+              child: const Icon(Icons.plus_one),
               onPressed: () {
                 controller.go("/about");
               },

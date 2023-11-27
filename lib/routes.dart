@@ -7,25 +7,15 @@ import 'package:ting_mobile/pages/search_page/search_page.dart';
 import 'core/page_router.dart';
 
 PageRouter<String> buildRouter() {
-  return PageRouter.defineRoutes(
-    initialRoute: "/hello", 
-    routes: {
-      "/hello": RouteItem(
-        () => HelloPage(),
-        icon: Icon(Icons.message),
+  return PageRouter.defineRoutes(initialRoute: "/hello", routes: {
+    "/hello": RouteItem(() => const HelloPage(),
+        icon: const Icon(Icons.message),
         label: "hello",
-        type: RouteType.bottomNavigation
-      ),
-      "/search": RouteItem(
-        () => SearchPage(),
-        icon: Icon(Icons.search),
+        type: RouteType.bottomNavigation),
+    "/search": RouteItem(() => const SearchPage(),
+        icon: const Icon(Icons.search),
         label: "search",
-        type: RouteType.bottomNavigation
-      ),
-      "/about": RouteItem(
-        () => AboutPage(), 
-        transition: Transition.fadeIn
-      ),
-    }
-  );
+        type: RouteType.bottomNavigation),
+    "/about": RouteItem(() => const AboutPage(), transition: Transition.fadeIn),
+  });
 }

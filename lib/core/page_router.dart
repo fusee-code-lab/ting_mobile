@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:get/route_manager.dart';
 import 'package:get/get.dart';
 
 typedef WidgetLinkedMap<Key> = Map<Key, RouteItem>;
@@ -15,16 +13,13 @@ class RouteItem {
   final String? label;
   final Transition? transition;
 
-  RouteItem(
-    this.builder,
-    {
-      RouteType type = RouteType.page,
+  RouteItem(this.builder,
+      {RouteType type = RouteType.page,
       this.icon,
       this.activeIcon,
       this.label,
-      this.transition
-    }
-  ): this.type = type;
+      this.transition})
+      : this.type = type;
 }
 
 abstract class BasePageRouter<RouteKey> {
@@ -37,8 +32,7 @@ abstract class BasePageRouter<RouteKey> {
 
 class PageRouter<RouteKey> extends GetxController
     with SingleGetTickerProviderMixin
-    implements BasePageRouter<RouteKey> 
-{
+    implements BasePageRouter<RouteKey> {
   final _bottomNavigationIdx = 0.obs;
   final List<Widget> bottomNavigationPages = [];
   final List<BottomNavigationBarItem> bottomNavigations = [];
@@ -55,16 +49,12 @@ class PageRouter<RouteKey> extends GetxController
     super.update();
   }
 
-  PageRouter.defineRoutes({
-    required RouteKey initialRoute, 
-    required this.routes
-  }): _initialRoute = initialRoute,
-      _currentRoute = initialRoute,
-      assert(
-        routes.keys.contains(initialRoute), 
-        "initialRoute 必须定义在 routes 中"
-      ) 
-  {
+  PageRouter.defineRoutes(
+      {required RouteKey initialRoute, required this.routes})
+      : _initialRoute = initialRoute,
+        _currentRoute = initialRoute,
+        assert(
+            routes.keys.contains(initialRoute), "initialRoute 必须定义在 routes 中") {
     var bottomNavigationCount = 0;
     for (var entry in routes.entries) {
       if (entry.value.type == RouteType.bottomNavigation) {
@@ -88,10 +78,9 @@ class PageRouter<RouteKey> extends GetxController
 
       if (entry.value.type == RouteType.page) {
         var pageItem = GetPage(
-          name: entry.key.toString(), 
-          page: entry.value.builder, 
-          transition: entry.value.transition
-        );
+            name: entry.key.toString(),
+            page: entry.value.builder,
+            transition: entry.value.transition);
         pages.add(pageItem);
       }
     }
@@ -100,10 +89,8 @@ class PageRouter<RouteKey> extends GetxController
   @override
   void goToTab(RouteKey target) {
     assert(this.routes.keys.contains(target), "target 必须定义在 routes");
-    assert(
-      this.routes[target]!.type == RouteType.bottomNavigation,
-      "goToTab 必须跳转到 bottomNavigation 类型的路由"
-    );
+    assert(this.routes[target]!.type == RouteType.bottomNavigation,
+        "goToTab 必须跳转到 bottomNavigation 类型的路由");
 
     _currentRoute = target;
     var idx = _bottomRouteKeyToIdx[target]!;
@@ -113,10 +100,8 @@ class PageRouter<RouteKey> extends GetxController
   @override
   void go(RouteKey target) {
     assert(this.routes.keys.contains(target), "target 必须定义在 routes");
-    assert(
-      this.routes[target]!.type == RouteType.page,
-      "goToTab 必须跳转到 page 类型的路由"
-    );
+    assert(this.routes[target]!.type == RouteType.page,
+        "goToTab 必须跳转到 page 类型的路由");
 
     _currentRoute = target;
     Get.toNamed(target.toString());

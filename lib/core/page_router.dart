@@ -31,7 +31,7 @@ abstract class BasePageRouter<RouteKey> {
 }
 
 class PageRouter<RouteKey> extends GetxController
-    with SingleGetTickerProviderMixin
+    with GetSingleTickerProviderStateMixin
     implements BasePageRouter<RouteKey> {
   final _bottomNavigationIdx = 0.obs;
   final List<Widget> bottomNavigationPages = [];
